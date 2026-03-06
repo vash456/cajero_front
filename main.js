@@ -1,5 +1,7 @@
 
+
 function iniciarData(usuarios) {
+    //localStorage.removeItem(LIST_USUARIOS);
     const identificacion = "0000000000"
     const correo = ""
     const admin = "admin"
@@ -17,28 +19,29 @@ function iniciarData(usuarios) {
         "movimientos": []
     }
     usuarios.push(adminData)
-    localStorage.setItem("usuarios", JSON.stringify(usuarios))
+    localStorage.setItem(LIST_USUARIOS, JSON.stringify(usuarios))
 }
 
+function validarUsuarioYcontraseina(usuario, password) {
+    const usuarios = JSON.parse(localStorage.getItem(LIST_USUARIOS)) || [];
+    const user = usuarios.find(
+        u => u.username === usuario && u.clave === password
+    );
 
-function validarUsuarioYcontraseina(usuario, password){
-    const usuarios = JSON.parse(localStorage.getItem("usuarios"))
-    usuarios.forEach(user => {
-        if (user.username === usuario && user.clave === password) {
-            if (user.estado === "bloqueado") {
-                alert("Usuario bloqueado, por favor contacte al administrador");
-                console.log("Usuario bloqueado, por favor contacte al administrador");
-                return false;
-            }else{
-                alert("Inicio se sesión exitoso");
-                console.log("Inicio se sesión exitoso");
-                return true;
-            }
-        }else {
-            console.log("Usuario o contraseña invalidos");
-            return false
-        }
-    });
+    if (!user) {
+        console.log("Usuario o contraseña inválidos");
+        return false;
+    }
+
+    if (user.estado === "bloqueado") {
+        alert("Usuario bloqueado, por favor contacte al administrador");
+        console.log("Usuario bloqueado, por favor contacte al administrador");
+        return false;
+    }
+
+    alert("Inicio de sesión exitoso");
+    console.log("Inicio de sesión exitoso");
+    return true;
 }
 
 function incrementarIntentosFallidos(user) {
@@ -101,6 +104,7 @@ function main() {
             case "1":
                 let usuario = prompt("Por favor ingresa tu nombre de usuario")
                 let password = prompt("Ahora ingresa tu contraseña")
+                console.log("aqui es");
                 if (validarUsuarioYcontraseina(usuario, password)) {
                     let opcion = ""
                     while (opcion != "5") {
@@ -118,6 +122,9 @@ function main() {
                             case "4":
 
                                 break;
+                            case "5":
+
+                                break;
 
                             default:
                                 break;
@@ -129,16 +136,16 @@ function main() {
                     usuarios.forEach(user => {
                         if (user.username === usuario) {
                             if (user.estado === "bloqueado") {
+                                alert("Usuario bloqueado, por favor contacte al administrador");
+                                console.log("Usuario bloqueado, por favor contacte al administrador");
+                            }else{
                                 if (incrementarIntentosFallidos(user) >= 3) {
                                     console.log(user);
                                     alert("Usuario bloqueado, por favor contacte al administrador");
                                     console.log("Usuario bloqueado, por favor contacte al administrador");
                                     user.estado = "bloqueado";
-                                    localStorage.setItem("usuarios", JSON.stringify(usuarios));
+                                    localStorage.setItem(LIST_USUARIOS, JSON.stringify(usuarios));
                                 }
-                            }else{
-                                alert("Usuario bloqueado, por favor contacte al administrador");
-                                console.log("Usuario bloqueado, por favor contacte al administrador");
                             }
 
                         }
@@ -149,7 +156,7 @@ function main() {
             case "2":
                 let nuevoUsuario = registrarUsuario()
                 usuarios.push(nuevoUsuario)
-                localStorage.setItem("usuarios", JSON.stringify(usuarios))
+                localStorage.setItem(LIST_USUARIOS, JSON.stringify(usuarios))
                 break;
             case "3":
                 inicio = false
@@ -168,4 +175,5 @@ function main() {
 }
 
 
+const LIST_USUARIOS = "usuarios"
 main()
