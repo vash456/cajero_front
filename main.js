@@ -74,8 +74,9 @@ function registrarUsuario() {
             console.log("Las claves no coinciden, por favor intente de nuevo")
         }
     }
+    let montoInicial = 0
     while (true) {
-        let montoInicial = prompt("Ahora ingrese su saldo inicial")
+        montoInicial = prompt("Ahora ingrese su saldo inicial")
         if (!isNaN(montoInicial) && montoInicial >= 0) {
             break
         } else {
