@@ -107,11 +107,11 @@ function main() {
         inicio = menuInicio()
         switch (inicio) {
             case "1":
-                let userName = prompt("Por favor ingresa tu nombre de usuario")
+                let username = prompt("Por favor ingresa tu nombre de usuario")
                 let password = prompt("Ahora ingresa tu contraseña")
                 console.log("aqui es");
-                if (validarUsuarioYcontraseina(userName, password)) {
-                    const usuario = obtenerUsuario(userName)
+                if (validarUsuarioYcontraseina(username, password)) {
+                    const usuario = obtenerUsuario(username)
                     let opcion = ""
                     while (opcion != "5") {
                         opcion = menu()
@@ -146,7 +146,7 @@ function main() {
 
                 } else {
                     usuarios.forEach(user => {
-                        if (user.username === usuario) {
+                        if (user.username === username) {
                             if (user.estado === "bloqueado") {
                                 alert("Usuario bloqueado, por favor contacte al administrador");
                                 console.log("Usuario bloqueado, por favor contacte al administrador");
