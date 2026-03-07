@@ -3,7 +3,13 @@
 
 ## Descripción
 
-Aplicación web frontend de un sistema de cajero automático que permite a los usuarios gestionar sus cuentas bancarias de forma segura.
+Aplicación web frontend de un sistema de cajero automático que permite a los usuarios gestionar sus cuentas bancarias de forma segura. 
+
+## Integrantes
+Darlin Estrada Patiño
+Carolina Bedoya Rendon
+Juan David Naranjo Naranjo
+Juliana Montes Yarce
 
 ## Características
 
