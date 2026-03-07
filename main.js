@@ -1,4 +1,4 @@
-
+import * as tr from "./transacciones.js"
 
 function iniciarData(usuarios) {
     //localStorage.removeItem(LIST_USUARIOS);
@@ -20,6 +20,10 @@ function iniciarData(usuarios) {
     }
     usuarios.push(adminData)
     localStorage.setItem(LIST_USUARIOS, JSON.stringify(usuarios))
+}
+function obtenerUsuario(username) {
+    const usuarios = JSON.parse(localStorage.getItem(LIST_USUARIOS)) || [];
+    return usuarios.find(u => u.username === username);
 }
 
 function validarUsuarioYcontraseina(usuario, password) {
@@ -102,31 +106,38 @@ function main() {
         inicio = menuInicio()
         switch (inicio) {
             case "1":
-                let usuario = prompt("Por favor ingresa tu nombre de usuario")
+                let userName = prompt("Por favor ingresa tu nombre de usuario")
                 let password = prompt("Ahora ingresa tu contraseña")
                 console.log("aqui es");
-                if (validarUsuarioYcontraseina(usuario, password)) {
+                if (validarUsuarioYcontraseina(userName, password)) {
+                    const usuario = obtenerUsuario(userName)
                     let opcion = ""
                     while (opcion != "5") {
                         opcion = menu()
                         switch (opcion) {
                             case "1":
+                                tr.retirarDinero(usuario)
 
                                 break;
                             case "2":
+                                tr.consultarSaldo(usuario)
 
                                 break;
                             case "3":
+                                tr.consignarDinero(usuario)
 
                                 break;
                             case "4":
+                                tr.consultarMovimientos(usuario)
 
                                 break;
                             case "5":
+                                opcion = "5"
 
                                 break;
 
                             default:
+                                console.log("Valor no valido");
                                 break;
                         }
 
